@@ -7,7 +7,7 @@ import { UserController, NoteController } from './controllers/index.js'
 import { paginatedResults } from './controllers/NoteController.js';
 import NoteModel from './models/Note.js'
 
-mongoose.connect('mongodb+srv://admin:wwwwww@cluster0.7yh6mbh.mongodb.net/blog?retryWrites=true&w=majority')
+mongoose.connect(process.env.MONGODB_URL)
     .then(() => console.log('DB ok'))
     .catch((error) => console.log('DB error', error))
 
@@ -27,7 +27,7 @@ app.post('/notes', checkAuth, handleValidationErrors, NoteController.create)
 app.delete('/notes/:id', checkAuth, NoteController.remove)
 app.patch('/notes/:id', checkAuth, NoteController.update)
 
-app.listen(4444, (err) => {
+app.listen(process.env.PORT || 4444, (err) => {
     if (err) {
         return console.log(err)
     }
